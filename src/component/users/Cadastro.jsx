@@ -22,7 +22,11 @@ const Cadastro =  () => {
                         <div className='user-content-cadastro'>
                             <Row>
                                 <Col span={20} offset={2}>
-                                    <img className='user-cadastro-logo' src={logo} />
+                                    <Row>
+                                        <Col span={16} offset={4}>
+                                            <img className='user-cadastro-logo' src={logo} />
+                                        </Col>
+                                    </Row>
                                     <Title level={3} className='user-cadastro-title'>Faça seu cadastro</Title>
                                     <Divider />
                                     <Form
