@@ -1,5 +1,5 @@
-import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
-import { Layout, Row, Col, Button, Checkbox, Form, Input, Typography, Divider } from 'antd';
+import { LockOutlined, UserOutlined, MailOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { Layout, Row, Col, Button, Checkbox, Form, Input, Typography, Divider, Space } from 'antd';
 import { React, useState } from 'react';
 import validator from 'validator'
 import userApiURI from '../../Utility/userApiURI';
@@ -9,20 +9,19 @@ import logo from '../../img/logo.jpg';
 const { Content } = Layout;
 const { Title } = Typography;
 
-
 function Cadastro() {
 
     const [emailStatus, setEmailStatus] = useState("");
     const [msgEmailStatus, setMsgEmailStatus] = useState("");
- 
-    async function checkEmail(e){
+
+    async function checkEmail(e) {
         const email = e.target.value
 
         setEmailStatus("")
         setMsgEmailStatus("")
 
         // Email não informado
-        if(!email){
+        if (!email) {
             setEmailStatus("error")
             setMsgEmailStatus("E-mail é obrigatório!")
             return
@@ -37,7 +36,7 @@ function Cadastro() {
 
         // Verifica se existe email cadastrado
         const mail = await userApiURI.checkEmail(email);
-        if(mail.data.success == true){
+        if (mail.data.success == true) {
             setEmailStatus("error")
             setMsgEmailStatus("E-mail já cadastrado!")
             return
@@ -57,91 +56,124 @@ function Cadastro() {
         <Layout className="layout">
             <Content>
                 <div className='user-row-cadastro'>
-                <Row>
-                    <Col span={6} offset={9}>
-                        <div className='user-content-cadastro'>
-                            <Row>
-                                <Col span={20} offset={2}>
-                                    <Row>
-                                        <Col span={16} offset={4}>
-                                            <img className='user-cadastro-logo' src={logo} />
-                                        </Col>
-                                    </Row>
-                                    <Title level={3} className='user-cadastro-title'>Faça seu cadastro</Title>
-                                    <Divider />
-                                    <Form
-                                        name="cadastro-usuario"
-                                        className="login-form"
-                                        initialValues={{
-                                            remember: true,
+                    <Row>
+                        <Col span={6} offset={9}>
+                            <div className='user-content-cadastro'>
+                                <Row>
+                                    <Col span={20} offset={2}>
+                                        <Row>
+                                            <Col span={16} offset={4}>
+                                                <img className='user-cadastro-logo' src={logo} />
+                                            </Col>
+                                        </Row>
+                                        <Title level={3} className='user-cadastro-title'>Faça seu cadastro</Title>
+                                        <Divider />
+                                        <Form
+                                            name="cadastro-usuario"
+                                            className="login-form"
+                                            initialValues={{
+                                                remember: true,
+
+                                            }}
+                                            validateMessages={validateMessages}
+                                            onFinish={onFinish}
+                                        >
+                                            <Form.Item
+                                                name="email"
+                                                rules={[
+                                                    {
+                                                        type: 'email',
+                                                        required: true,
+                                                    },
+                                                ]}
+                                                hasFeedback
+                                                validateStatus={emailStatus}
+                                                help={msgEmailStatus}
+                                            >
+                                                <Input autoFocus prefix={<MailOutlined className="site-form-item-icon" />} placeholder="E-mail" onBlur={(e) => { checkEmail(e) }} />
+                                            </Form.Item>
+                                            <Form.Item
+                                                name="username"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        //message: 'Please input your Username!',
+                                                    },
+                                                ]}
+                                            >
+                                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Nome" />
+                                            </Form.Item>
+                                            <Form.Item
+                                                name="sobrenome"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        //message: 'Please input your Last Name!',
+                                                    },
+                                                ]}
+                                            >
+                                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Sobrenome" />
+                                            </Form.Item>
+                                            <Form.Item
+                                                name="password"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        //message: 'Please input your Password!',
+                                                    },
+                                                ]}
+                                            >
+                                                <Input.Password
+                                                    prefix={<LockOutlined className="site-form-item-icon" />}
+                                                    type="password"
+                                                    placeholder="Senha"
+                                                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                                                />
+                                            </Form.Item>
+                                            <Form.Item
+                                                name="password2"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        //message: 'Please input your Password!',
+                                                    },
+                                                ]}
+                                            >
+                                                <Input.Password
+                                                    prefix={<LockOutlined className="site-form-item-icon" />}
+                                                    type="password"
+                                                    placeholder="Repita a Senha"
+                                                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                                                />
+                                            </Form.Item>
                                             
-                                        }}
-                                        validateMessages={validateMessages}
-                                        onFinish={onFinish}
-                                    >
-                                        <Form.Item
-                                            name="email"
-                                            rules={[
-                                            {
-                                                type: 'email',
-                                                required: true,
-                                            },
-                                            ]}
-                                            hasFeedback
-                                            validateStatus={emailStatus}
-                                            help={msgEmailStatus}
-                                        >
-                                            <Input autoFocus prefix={<MailOutlined className="site-form-item-icon" />} placeholder="E-mail" onBlur={(e) => {checkEmail(e)}} />
-                                        </Form.Item>
-                                        <Form.Item
-                                            name="username"
-                                            rules={[
-                                            {
-                                                required: true,
-                                                //message: 'Please input your Username!',
-                                            },
-                                            ]}
-                                        >
-                                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                                        </Form.Item>
-                                        <Form.Item
-                                            name="password"
-                                            rules={[
-                                            {
-                                                required: true,
-                                                //message: 'Please input your Password!',
-                                            },
-                                            ]}
-                                        >
-                                            <Input
-                                            prefix={<LockOutlined className="site-form-item-icon" />}
-                                            type="password"
-                                            placeholder="Password"
-                                            />
-                                        </Form.Item>
-                                        <Form.Item>
-                                            <Form.Item name="remember" valuePropName="checked" noStyle>
-                                            <Checkbox>Remember me</Checkbox>
+                                            <Form.Item>
+                                                <Input addonAfter=".galeriapro.com.br" placeholder='meusite'/>
                                             </Form.Item>
 
-                                            <a className="login-form-forgot" href="">
-                                            Forgot password
-                                            </a>
-                                        </Form.Item>
+                                            <Form.Item>
+                                                <Form.Item name="remember" valuePropName="checked" noStyle>
+                                                    <Checkbox>Lembrar de mim</Checkbox>
+                                                </Form.Item>
 
-                                        <Form.Item>
-                                            <Button type="primary" htmlType="submit" className="login-form-button">
-                                            Log in
-                                            </Button>
-                                            Or <a href="">register now!</a>
-                                        </Form.Item>
-                                    </Form>
+                                                <a className="login-form-forgot" href="">
+                                                    Esqueci a senha
+                                                </a>
+                                            </Form.Item>
 
-                                </Col>
-                            </Row>
-                        </div>
-                    </Col>
-                </Row>
+                                            <Form.Item>
+                                                <Button type="primary" htmlType="submit" className="login-form-button">
+                                                    Registrar
+                                                </Button>
+                                                Ou <a href="/login"> Entrar</a>
+                                            </Form.Item>
+                                        </Form>
+
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Col>
+                    </Row>
                 </div>
             </Content>
         </Layout>
