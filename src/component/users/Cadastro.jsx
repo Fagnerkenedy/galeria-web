@@ -93,7 +93,7 @@ function Cadastro() {
                                                 <Input autoFocus prefix={<MailOutlined className="site-form-item-icon" />} placeholder="E-mail" onBlur={(e) => { checkEmail(e) }} />
                                             </Form.Item>
                                             <Form.Item
-                                                name="username"
+                                                name="name"
                                                 rules={[
                                                     {
                                                         required: true,
@@ -104,7 +104,7 @@ function Cadastro() {
                                                 <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Nome" />
                                             </Form.Item>
                                             <Form.Item
-                                                name="sobrenome"
+                                                name="lastname"
                                                 rules={[
                                                     {
                                                         required: true,
@@ -131,7 +131,7 @@ function Cadastro() {
                                                 />
                                             </Form.Item>
                                             <Form.Item
-                                                name="password2"
+                                                name="confirmpassword"
                                                 rules={[
                                                     {
                                                         required: true,
@@ -142,13 +142,13 @@ function Cadastro() {
                                                 <Input.Password
                                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                                     type="password"
-                                                    placeholder="Repita a Senha"
+                                                    placeholder="Confirme a Senha"
                                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                                 />
                                             </Form.Item>
                                             
                                             <Form.Item 
-                                                name="nomesite"
+                                                name="sitename"
                                                 rules={[
                                                     {
                                                         required: true,
@@ -158,7 +158,7 @@ function Cadastro() {
                                                 <Input addonAfter=".galeriapro.com.br" placeholder='meusite'/>
                                             </Form.Item>
                                             <Form.Item>
-                                                <Button type="primary" htmlType="submit" className="login-form-button cad-button">
+                                                <Button type="primary" htmlType="submit" className="login-form-button card-button">
                                                     Cadastrar
                                                 </Button>
                                             </Form.Item>
