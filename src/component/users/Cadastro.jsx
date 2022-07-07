@@ -3,8 +3,9 @@ import { Layout, Row, Col, Button, Checkbox, Form, Input, Typography, Divider, S
 import { React, useState } from 'react';
 import { Link } from 'react-router-dom';
 import validator from 'validator'
-import userApiURI from '../../Utility/userApiURI';
+import ConfirmPassword from '../ConfirmPassword'
 
+import userApiURI from '../../Utility/userApiURI';
 import logo from '../../img/logo.jpg';
 
 const { Content } = Layout;
@@ -134,6 +135,9 @@ function Cadastro() {
                                                     placeholder="Senha"
                                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                                 />
+                                            </Form.Item>
+                                            <Form.Item>
+                                                <ConfirmPassword></ConfirmPassword>
                                             </Form.Item>
                                             <Form.Item
                                                 name="password-confirm"

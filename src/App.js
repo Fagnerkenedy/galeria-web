@@ -6,6 +6,7 @@ import Home from "./Home"
 import Cadastro from "./component/users/Cadastro"
 import Login from "./component/users/Login"
 import PageNotFound from "./PageNotFound"
+import ConfirmPassword from './component/ConfirmPassword'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
+      <ConfirmPassword/>
     </div>
   );
 }
