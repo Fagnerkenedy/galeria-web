@@ -1,6 +1,7 @@
 import { LockOutlined, UserOutlined, MailOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Layout, Row, Col, Button, Checkbox, Form, Input, Typography, Divider, Space } from 'antd';
 import { React, useState } from 'react';
+import { Link } from 'react-router-dom';
 import validator from 'validator'
 import userApiURI from '../../Utility/userApiURI';
 
@@ -43,8 +44,15 @@ function Cadastro() {
         }
     }
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         console.log('Received values of form: ', values);
+        const result = await userApiURI.register(values)
+        console.log(result.data.success)
+        if(!result.data.succes){
+            console.log('Erro ao cadastrar')
+        }else{
+            console.log('Cadastrado com sucesso')
+        }
     };
 
 
@@ -93,22 +101,20 @@ function Cadastro() {
                                                 <Input autoFocus prefix={<MailOutlined className="site-form-item-icon" />} placeholder="E-mail" onBlur={(e) => { checkEmail(e) }} />
                                             </Form.Item>
                                             <Form.Item
-                                                name="username"
+                                                name="name"
                                                 rules={[
                                                     {
                                                         required: true,
-                                                        //message: 'Please input your Username!',
                                                     },
                                                 ]}
                                             >
                                                 <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Nome" />
                                             </Form.Item>
                                             <Form.Item
-                                                name="sobrenome"
+                                                name="lastname"
                                                 rules={[
                                                     {
                                                         required: true,
-                                                        //message: 'Please input your Last Name!',
                                                     },
                                                 ]}
                                             >
@@ -119,7 +125,6 @@ function Cadastro() {
                                                 rules={[
                                                     {
                                                         required: true,
-                                                        //message: 'Please input your Password!',
                                                     },
                                                 ]}
                                             >
@@ -131,32 +136,21 @@ function Cadastro() {
                                                 />
                                             </Form.Item>
                                             <Form.Item
-                                                name="password2"
+                                                name="password-confirm"
                                                 rules={[
                                                     {
                                                         required: true,
-                                                        //message: 'Please input your Password!',
                                                     },
                                                 ]}
                                             >
                                                 <Input.Password
                                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                                     type="password"
-                                                    placeholder="Repita a Senha"
+                                                    placeholder="Confirme a Senha"
                                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                                 />
                                             </Form.Item>
                                             
-                                            <Form.Item 
-                                                name="nomesite"
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        //message: 'Please input your Password!',
-                                                    },
-                                                ]}>
-                                                <Input addonAfter=".galeriapro.com.br" placeholder='meusite'/>
-                                            </Form.Item>
                                             <Form.Item>
                                                 <Button type="primary" htmlType="submit" className="login-form-button cad-button">
                                                     Cadastrar
@@ -168,7 +162,7 @@ function Cadastro() {
                                 <Row>
                                     <Col span={20} offset={2}>
                                         <div className='text-center'>
-                                            Já possui conta? Faça o <a href="/login">Login!</a>
+                                            Já possui conta? Faça o <Link to="/login">Login!</Link>
                                         </div>
                                     </Col>
                                 </Row>

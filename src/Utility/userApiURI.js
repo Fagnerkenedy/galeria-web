@@ -9,7 +9,18 @@ const apiURI = {
       data: { email } ,
     }
     return userApiRequest(config);
-  }
+  },
+
+  register: (data) => {
+    const config = {
+        method: 'post',
+        url: `${process.env.REACT_APP_USER_API_BASE_URL}/register`,
+        data: { ...data }
+    }
+
+    return userApiRequest(config)
+
+  } 
 
 }
 

@@ -1,6 +1,7 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Layout, Row, Col, Button, Checkbox, Form, Input } from 'antd';
 import React from 'react';
+import { Link } from 'react-router-dom';
 const { Content } = Layout;
 
 
@@ -65,7 +66,7 @@ const Login =  () => {
                                             <Button type="primary" htmlType="submit" className="login-form-button">
                                             Entrar
                                             </Button>
-                                            Ou <a href="/cadastro">Registrar-se</a>
+                                            Ou <Link to="/cadastro">Registrar-se</Link>
                                         </Form.Item>
                                     </Form>
 
