@@ -147,18 +147,15 @@ function Cadastro() {
                                                 />
                                             </Form.Item>
                                             
-                                            <Form.Item>
+                                            <Form.Item 
+                                                name="nomesite"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        //message: 'Please input your Password!',
+                                                    },
+                                                ]}>
                                                 <Input addonAfter=".galeriapro.com.br" placeholder='meusite'/>
-                                            </Form.Item>
-
-                                            <Form.Item>
-                                                <Form.Item name="remember" valuePropName="checked" noStyle>
-                                                    <Checkbox>Lembrar de mim</Checkbox>
-                                                </Form.Item>
-
-                                                <a className="login-form-forgot" href="">
-                                                    Esqueci a senha
-                                                </a>
                                             </Form.Item>
 
                                             <Form.Item>

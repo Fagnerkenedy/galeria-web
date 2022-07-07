@@ -53,19 +53,19 @@ const Login =  () => {
                                         </Form.Item>
                                         <Form.Item>
                                             <Form.Item name="remember" valuePropName="checked" noStyle>
-                                            <Checkbox>Remember me</Checkbox>
+                                            <Checkbox>Lembrar de mim</Checkbox>
                                             </Form.Item>
 
                                             <a className="login-form-forgot" href="">
-                                            Forgot password
+                                            Esqueci a senha
                                             </a>
                                         </Form.Item>
 
                                         <Form.Item>
                                             <Button type="primary" htmlType="submit" className="login-form-button">
-                                            Log in
+                                            Entrar
                                             </Button>
-                                            Or <a href="">register now!</a>
+                                            Ou <a href="/cadastro">Registrar-se</a>
                                         </Form.Item>
                                     </Form>
 
