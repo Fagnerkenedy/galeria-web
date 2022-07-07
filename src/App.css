@@ -28,3 +28,11 @@
   max-width: 100%;
   margin-bottom: 40px;
 }
+
+.text-center{
+  text-align: center;
+}
+
+.cad-button{
+  width: 100%;
+}

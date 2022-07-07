@@ -157,15 +157,19 @@ function Cadastro() {
                                                 ]}>
                                                 <Input addonAfter=".galeriapro.com.br" placeholder='meusite'/>
                                             </Form.Item>
-
                                             <Form.Item>
-                                                <Button type="primary" htmlType="submit" className="login-form-button">
-                                                    Registrar
+                                                <Button type="primary" htmlType="submit" className="login-form-button cad-button">
+                                                    Cadastrar
                                                 </Button>
-                                                Ou <a href="/login"> Entrar</a>
                                             </Form.Item>
                                         </Form>
-
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col span={20} offset={2}>
+                                        <div className='text-center'>
+                                            Já possui conta? Faça o <a href="/login">Login!</a>
+                                        </div>
                                     </Col>
                                 </Row>
                             </div>
