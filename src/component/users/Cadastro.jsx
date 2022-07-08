@@ -3,7 +3,7 @@ import { Layout, Row, Col, Button, Checkbox, Form, Input, Typography, Divider, S
 import { React, useState } from 'react';
 import { Link } from 'react-router-dom';
 import validator from 'validator'
-import ConfirmPassword from '../ConfirmPassword'
+import ConfirmPassword from '../ConfirmPassword';
 
 import userApiURI from '../../Utility/userApiURI';
 import logo from '../../img/logo.jpg';

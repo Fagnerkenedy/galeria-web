@@ -1,6 +1,7 @@
+import './App.less';
+import './style.less';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import './App.css';
 
 import Home from "./Home"
 import Cadastro from "./component/users/Cadastro"
