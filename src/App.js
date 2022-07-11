@@ -1,18 +1,18 @@
-import './App.less';
-import './style.less';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Home from "./Home"
-import Cadastro from "./component/users/Cadastro"
-import Login from "./component/users/Login"
+import './App.less';
+import './style.less'
+
+import Home from './Home'
+import Cadastro from './components/users/Cadastro'
+import Login from "./components/users/Login"
 import PageNotFound from "./PageNotFound"
-import ConfirmPassword from './component/ConfirmPassword'
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
+  <div className="App">
+    <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/cadastro" element={<Cadastro />} />
@@ -20,9 +20,8 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
-      <ConfirmPassword/>
-    </div>
-  );
+  </div>
+)
 }
 
 export default App;

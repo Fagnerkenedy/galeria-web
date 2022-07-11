@@ -1,12 +1,11 @@
 import { LockOutlined, UserOutlined, MailOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Layout, Row, Col, Button, Checkbox, Form, Input, Typography, Divider, Space } from 'antd';
+import { Layout, Row, Col, Button, Form, Input, Typography, Divider } from 'antd';
 import { React, useState } from 'react';
 import { Link } from 'react-router-dom';
 import validator from 'validator'
-import ConfirmPassword from '../ConfirmPassword';
 
 import userApiURI from '../../Utility/userApiURI';
-import logo from '../../img/logo.jpg';
+import logo from '../../img/logo.jpeg';
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -38,7 +37,7 @@ function Cadastro() {
 
         // Verifica se existe email cadastrado
         const mail = await userApiURI.checkEmail(email);
-        if (mail.data.success == true) {
+        if (mail.data.success === true) {
             setEmailStatus("error")
             setMsgEmailStatus("E-mail já cadastrado!")
             return
@@ -72,7 +71,7 @@ function Cadastro() {
                                     <Col span={20} offset={2}>
                                         <Row>
                                             <Col span={16} offset={4}>
-                                                <img className='user-cadastro-logo' src={logo} />
+                                                <img alt='Logo' className='user-cadastro-logo' src={logo} />
                                             </Col>
                                         </Row>
                                         <Title level={3} className='user-cadastro-title'>Faça seu cadastro</Title>
@@ -135,9 +134,6 @@ function Cadastro() {
                                                     placeholder="Senha"
                                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                                 />
-                                            </Form.Item>
-                                            <Form.Item>
-                                                <ConfirmPassword></ConfirmPassword>
                                             </Form.Item>
                                             <Form.Item
                                                 name="password-confirm"
