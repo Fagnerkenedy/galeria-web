@@ -1,64 +1,75 @@
-import { LockOutlined, UserOutlined, MailOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Layout, Row, Col, Button, Form, Input, Typography, Divider } from 'antd';
+import { LockOutlined, UserOutlined, MailOutlined, EyeInvisibleOutlined, EyeTwoTone, SmileOutlined } from '@ant-design/icons';
+import { Layout, Row, Col, Button, Form, Input, Typography, Divider, Alert, Result } from 'antd';
+import { PasswordInput } from 'antd-password-input-strength';
 import { React, useState } from 'react';
 import { Link } from 'react-router-dom';
-import validator from 'validator'
 
 import userApiURI from '../../Utility/userApiURI';
 import logo from '../../img/logo.jpeg';
+import Loading from '../utils/Loading'
 
 const { Content } = Layout;
 const { Title } = Typography;
 
 function Cadastro() {
 
-    const [emailStatus, setEmailStatus] = useState("");
-    const [msgEmailStatus, setMsgEmailStatus] = useState("");
-
-    async function checkEmail(e) {
-        const email = e.target.value
-
-        setEmailStatus("")
-        setMsgEmailStatus("")
-
-        // Email não informado
-        if (!email) {
-            setEmailStatus("error")
-            setMsgEmailStatus("E-mail é obrigatório!")
-            return
-        }
-
-        // Formato inválido
-        if (!validator.isEmail(email)) {
-            setEmailStatus("error")
-            setMsgEmailStatus("Formato de E-mail inválido")
-            return
-        }
-
-        // Verifica se existe email cadastrado
-        const mail = await userApiURI.checkEmail(email);
-        if (mail.data.success === true) {
-            setEmailStatus("error")
-            setMsgEmailStatus("E-mail já cadastrado!")
-            return
-        }
-    }
+    const [form] = Form.useForm();
+    const [alertMessage, setAlertMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [cadastrado, setCadastrado] = useState(false);
 
     const onFinish = async (values) => {
-        console.log('Received values of form: ', values);
-        const result = await userApiURI.register(values)
-        console.log(result.data.success)
-        if(!result.data.succes){
-            console.log('Erro ao cadastrar')
-        }else{
-            console.log('Cadastrado com sucesso')
+        setLoading(true)
+        console.log('Received values of form: ', values)
+        try {
+            // Verifica se existe email cadastrado
+            const emailCheck = await userApiURI.checkEmail(values.email);
+            if (emailCheck.data.success === true) {
+                console.log('Email já cadastrado')
+                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="O E-mail informado já está cadastrado em nosso sistema. Por favor revise os dados informados  " type="error" showIcon /> )
+                setLoading(false)
+                return
+            }
+            console.log(emailCheck)
+
+            const result = await userApiURI.register(values)
+            console.log(result.data.success)
+            if(!result.data.succes){
+                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Administrador." type="error" showIcon /> )
+                console.log('Erro ao cadastrar')
+            }else{
+                setCadastrado(true)
+                console.log('Cadastrado com sucesso')
+            }
+            setLoading(false)
+        } catch (error) {
+            setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Administrador." type="error" showIcon />)
+            console.log('Erro ao tentar cadastrar', error)
+            setLoading(false) 
         }
     };
-
-
+    
     const validateMessages = {
         required: 'Campo obrigatório!',
     };
+
+    if(loading){
+        return (
+            <Loading />
+        )
+    }
+    
+    if(cadastrado){
+        return (
+            <Result
+                icon={<SmileOutlined />}
+                title="Cadastro efetuado com sucesso!"
+                subTitle="Enviamos um e-mail para sua caixa de entrada, é só entrar lá e confirmar"
+                extra={<Link to='/login'><Button type="primary">Login</Button></Link>}
+            />
+
+        )
+    }
 
     return (
         <Layout className="layout">
@@ -70,13 +81,18 @@ function Cadastro() {
                                 <Row>
                                     <Col span={20} offset={2}>
                                         <Row>
-                                            <Col span={16} offset={4}>
+                                            <Col span={22} offset={1}>
                                                 <img alt='Logo' className='user-cadastro-logo' src={logo} />
                                             </Col>
                                         </Row>
-                                        <Title level={3} className='user-cadastro-title'>Faça seu cadastro</Title>
+                                        <Title level={4} className='user-cadastro-title'>Faça seu cadastro</Title>
+
+                                        {/* MENSAGEM DE ALERTA CASO RETORNE ERRO NO CADASTRO */}
+                                        {alertMessage}
+                                        
                                         <Divider />
                                         <Form
+                                            form={form}
                                             name="cadastro-usuario"
                                             className="login-form"
                                             initialValues={{
@@ -86,20 +102,7 @@ function Cadastro() {
                                             validateMessages={validateMessages}
                                             onFinish={onFinish}
                                         >
-                                            <Form.Item
-                                                name="email"
-                                                rules={[
-                                                    {
-                                                        type: 'email',
-                                                        required: true,
-                                                    },
-                                                ]}
-                                                hasFeedback
-                                                validateStatus={emailStatus}
-                                                help={msgEmailStatus}
-                                            >
-                                                <Input autoFocus prefix={<MailOutlined className="site-form-item-icon" />} placeholder="E-mail" onBlur={(e) => { checkEmail(e) }} />
-                                            </Form.Item>
+                                            
                                             <Form.Item
                                                 name="name"
                                                 rules={[
@@ -107,8 +110,9 @@ function Cadastro() {
                                                         required: true,
                                                     },
                                                 ]}
+                                                style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
                                             >
-                                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Nome" />
+                                                <Input size='large' prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Nome" autoFocus />
                                             </Form.Item>
                                             <Form.Item
                                                 name="lastname"
@@ -117,18 +121,37 @@ function Cadastro() {
                                                         required: true,
                                                     },
                                                 ]}
+                                                style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
                                             >
-                                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Sobrenome" />
+                                                <Input size='large' prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Sobrenome" />
                                             </Form.Item>
+                                            <Form.Item
+                                                name="email"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                    },
+                                                    {
+                                                        type: 'email',
+                                                        message: 'E-mail Inválido!',
+                                                    }
+                                                ]}
+                                            >
+                                                <Input size='large' prefix={<MailOutlined className="site-form-item-icon" />} placeholder="E-mail" />
+                                            </Form.Item>
+                                            
                                             <Form.Item
                                                 name="password"
                                                 rules={[
                                                     {
                                                         required: true,
                                                     },
+                                                    { min: 6, message: 'A senha deve ter pelo menos 6 caracteres.' }
                                                 ]}
+                                                hasFeedback
                                             >
-                                                <Input.Password
+                                                <PasswordInput 
+                                                    size='large'
                                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                                     type="password"
                                                     placeholder="Senha"
@@ -141,9 +164,19 @@ function Cadastro() {
                                                     {
                                                         required: true,
                                                     },
+                                                    ({ getFieldValue }) => ({
+                                                        validator(_, value) {
+                                                            if (!value || getFieldValue('password') === value) {
+                                                                return Promise.resolve();
+                                                            }
+                                                            return Promise.reject(new Error('As senhas não conferem!'));
+                                                        },
+                                                    }),
                                                 ]}
+                                                hasFeedback
                                             >
                                                 <Input.Password
+                                                    size='large'
                                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                                     type="password"
                                                     placeholder="Confirme a Senha"

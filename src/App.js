@@ -8,6 +8,7 @@ import Home from './Home'
 import Cadastro from './components/users/Cadastro'
 import Login from "./components/users/Login"
 import PageNotFound from "./PageNotFound"
+import ConfirmedEmail from './components/users/ConfirmEmail';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/cadastro" element={<Cadastro />} />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/emailconfirm" element={<ConfirmedEmail />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
