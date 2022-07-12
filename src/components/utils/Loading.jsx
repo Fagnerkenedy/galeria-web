@@ -9,7 +9,7 @@ const Loading = () => {
             <Content>
                 <div className='user-row-cadastro'>
                     <Row>
-                        <Col span={24} align="middle"  style={{ paddingTop: "15px", fontSize: '1.5em' }}>
+                        <Col span={24} align="middle"  style={{ paddingTop: "50vh", fontSize: '1.5em' }}>
                             <Spin size="large" />
                         </Col>
                     </Row>

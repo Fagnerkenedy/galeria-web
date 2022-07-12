@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 
 import userApiURI from '../../Utility/userApiURI';
 import logo from '../../img/logo.jpeg';
-import Loading from '../utils/Loading'
+import Loading from '../utils/Loading';
+import FooterText from '../utils/FooterText';
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -20,13 +21,14 @@ function Cadastro() {
 
     const onFinish = async (values) => {
         setLoading(true)
+        setCadastrado(true)
         console.log('Received values of form: ', values)
         try {
             // Verifica se existe email cadastrado
             const emailCheck = await userApiURI.checkEmail(values.email);
             if (emailCheck.data.success === true) {
                 console.log('Email já cadastrado')
-                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="O E-mail informado já está cadastrado em nosso sistema. Por favor revise os dados informados  " type="error" showIcon /> )
+                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="O E-mail informado já está cadastrado em nosso sistema. Por favor revise os dados informados  " type="error" showIcon />)
                 setLoading(false)
                 return
             }
@@ -34,10 +36,10 @@ function Cadastro() {
 
             const result = await userApiURI.register(values)
             console.log(result.data.success)
-            if(!result.data.succes){
-                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Administrador." type="error" showIcon /> )
+            if (!result.data.succes) {
+                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Administrador." type="error" showIcon />)
                 console.log('Erro ao cadastrar')
-            }else{
+            } else {
                 setCadastrado(true)
                 console.log('Cadastrado com sucesso')
             }
@@ -45,21 +47,21 @@ function Cadastro() {
         } catch (error) {
             setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Administrador." type="error" showIcon />)
             console.log('Erro ao tentar cadastrar', error)
-            setLoading(false) 
+            setLoading(false)
         }
     };
-    
+
     const validateMessages = {
         required: 'Campo obrigatório!',
     };
 
-    if(loading){
+    if (loading) {
         return (
             <Loading />
         )
     }
-    
-    if(cadastrado){
+
+    if (cadastrado) {
         return (
             <Result
                 icon={<SmileOutlined />}
@@ -76,7 +78,11 @@ function Cadastro() {
             <Content>
                 <div className='user-row-cadastro'>
                     <Row>
-                        <Col span={6} offset={9}>
+                        <Col xs={{ span: 22, offset: 1 }}
+                             sm={{ span: 16, offset: 4 }}
+                             md={{ span: 12, offset: 6 }}
+                             lg={{ span: 10, offset: 6 }}
+                             xl={{ span: 6, offset: 9 }}>
                             <div className='user-content-cadastro'>
                                 <Row>
                                     <Col span={20} offset={2}>
@@ -89,7 +95,7 @@ function Cadastro() {
 
                                         {/* MENSAGEM DE ALERTA CASO RETORNE ERRO NO CADASTRO */}
                                         {alertMessage}
-                                        
+
                                         <Divider />
                                         <Form
                                             form={form}
@@ -102,7 +108,7 @@ function Cadastro() {
                                             validateMessages={validateMessages}
                                             onFinish={onFinish}
                                         >
-                                            
+
                                             <Form.Item
                                                 name="name"
                                                 rules={[
@@ -110,7 +116,7 @@ function Cadastro() {
                                                         required: true,
                                                     },
                                                 ]}
-                                                style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
+                                                style={{ display: 'inline-block', width: 'calc(50% - 10px)' }}
                                             >
                                                 <Input size='large' prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Nome" autoFocus />
                                             </Form.Item>
@@ -121,7 +127,7 @@ function Cadastro() {
                                                         required: true,
                                                     },
                                                 ]}
-                                                style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
+                                                style={{ display: 'inline-block', width: 'calc(50% - 10px)', marginLeft: '20px' }}
                                             >
                                                 <Input size='large' prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Sobrenome" />
                                             </Form.Item>
@@ -139,7 +145,7 @@ function Cadastro() {
                                             >
                                                 <Input size='large' prefix={<MailOutlined className="site-form-item-icon" />} placeholder="E-mail" />
                                             </Form.Item>
-                                            
+
                                             <Form.Item
                                                 name="password"
                                                 rules={[
@@ -150,7 +156,7 @@ function Cadastro() {
                                                 ]}
                                                 hasFeedback
                                             >
-                                                <PasswordInput 
+                                                <PasswordInput
                                                     size='large'
                                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                                     type="password"
@@ -183,7 +189,7 @@ function Cadastro() {
                                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                                 />
                                             </Form.Item>
-                                            
+
                                             <Form.Item>
                                                 <Button type="primary" htmlType="submit" className="login-form-button cad-button">
                                                     Cadastrar
@@ -200,6 +206,7 @@ function Cadastro() {
                                     </Col>
                                 </Row>
                             </div>
+                            <FooterText />
                         </Col>
                     </Row>
                 </div>

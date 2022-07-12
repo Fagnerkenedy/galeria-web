@@ -1,8 +1,10 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Layout, Row, Col, Button, Form, Input, Typography, Divider } from 'antd';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
 import logo from '../../img/logo.jpeg';
+import FooterText from '../utils/FooterText';
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -17,7 +19,10 @@ const Login = () => {
             <Content>
                 <div className='user-row-cadastro'>
                     <Row>
-                        <Col span={6} offset={9}>
+                        <Col xs={{ span: 20, offset: 2 }}
+                             sm={{ span: 15, offset: 5 }}
+                             md={{ span: 10, offset: 7 }}
+                             lg={{ span: 6, offset: 9 }}>
                             <div className='user-content-cadastro'>
                                 <Row>
                                     <Col span={20} offset={2}>
@@ -89,6 +94,7 @@ const Login = () => {
                                     </Col>
                                 </Row>
                             </div>
+                            <FooterText />
                         </Col>
                     </Row>
                 </div>

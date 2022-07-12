@@ -13,8 +13,8 @@ import ConfirmedEmail from './components/users/ConfirmEmail';
 function App() {
   return (
   <div className="App">
-    <BrowserRouter>
-        <Routes>
+    <BrowserRouter >
+        <Routes >
           <Route exact path="/" element={<Home />} />
           <Route exact path="/cadastro" element={<Cadastro />} />
           <Route exact path="/login" element={<Login />} />
