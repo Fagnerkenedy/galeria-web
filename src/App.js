@@ -8,25 +8,23 @@ import Cadastro from './components/users/Cadastro'
 import Login from "./components/users/Login"
 import PageNotFound from "./PageNotFound"
 import ConfirmedEmail from './components/users/ConfirmEmail';
-import Aplicacao from './Aplicacao';
 import Home from './Home';
+
 
 function App() {
   return (
-  <div className="App">
-    <BrowserRouter >
+    <div className="App">
+      <BrowserRouter >
+        <Home />
         <Routes >
-          <Route exact path="/" element={<Home />}>
-            <Route path="/aplicacao" element={<Aplicacao />}/>
-          </Route>
           <Route exact path="/cadastro" element={<Cadastro />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/emailconfirm" element={<ConfirmedEmail />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
-  </div>
-)
+    </div>
+  )
 }
 
 export default App;

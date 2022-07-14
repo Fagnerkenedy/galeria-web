@@ -2,15 +2,17 @@ import './Home.css';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
+  FolderAddOutlined,
+  UnorderedListOutlined,
+  CameraOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'
 
 import Imgcollapsed from './LogoCollapsed';
-
+import SubMenu from 'antd/lib/menu/SubMenu';
+import Rotas from './main/routes'
 
 
 
@@ -28,24 +30,13 @@ const Home = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
-          items={[
-            {
-              key: '1',
-              icon: <UserOutlined />,
-              label: 'nav 1',
-            },
-            {
-              key: '2',
-              icon: <VideoCameraOutlined />,
-              label: 'nav 2',
-            },
-            {
-              key: '3',
-              icon: <UploadOutlined />,
-              label: 'nav 3',
-            },
-          ]}
-        />
+        >
+          <SubMenu title='Galeria' icon={<CameraOutlined />}>
+            <Menu.Item key={1} icon={<UnorderedListOutlined />}><Link to="/listargaleria">Listar Galeria</Link></Menu.Item>
+            <Menu.Item key={2} icon={<FolderAddOutlined />}><Link to="/criargaleria">Criar Galeria</Link></Menu.Item>
+          </SubMenu>
+        </Menu>
+
       </Sider>
       <Layout className="site-layout">
         <Header
@@ -67,8 +58,9 @@ const Home = () => {
             minHeight: 280,
           }}
         >
-          Content
 
+          <Rotas />
+          
         </Content>
       </Layout>
     </Layout>

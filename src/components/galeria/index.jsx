@@ -1,8 +1,9 @@
 import React from "react";
 
+
 function CriarGaleria() {
     return (
-        <div><h1>texto testeeeeeeee</h1></div>
+        <div><h1>Criar Galeria</h1></div>
     )
 }
 

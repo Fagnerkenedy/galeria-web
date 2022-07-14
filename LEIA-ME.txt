@@ -1,0 +1,7 @@
+Essa aplicação está no repositório atualizado e funcionando!
+
+Eu estava tentando implementar uma navegação com react router dentro do layout do Ant Design, porem sem sucesso, mas não retirei as
+coisas que já tinha feito até esse momento, então quando for retornar a editar esses arquivos sujiro que abra o print que tirei e
+abra novamente os arquivos que estão aparecendo nele para entender o que eu estava fazendo e tentar corrigir ou continuar de onde parei.
+
+Happy hacking!
