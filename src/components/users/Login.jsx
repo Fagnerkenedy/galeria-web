@@ -50,7 +50,7 @@ const Login = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                                                <Input size='large' prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" autoFocus />
                                             </Form.Item>
                                             <Form.Item
                                                 name="password"
@@ -62,6 +62,7 @@ const Login = () => {
                                                 ]}
                                             >
                                                 <Input
+                                                    size='large'
                                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                                     type="password"
                                                     placeholder="Password"
