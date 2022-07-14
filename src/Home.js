@@ -8,11 +8,11 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 import Imgcollapsed from './LogoCollapsed';
 import SubMenu from 'antd/lib/menu/SubMenu';
-import Rotas from './main/routes'
+import ContentPage from './main/Content';
 
 
 
@@ -59,7 +59,7 @@ const Home = () => {
           }}
         >
 
-          <Rotas />
+          <ContentPage />
           
         </Content>
       </Layout>
