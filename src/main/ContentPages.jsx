@@ -7,6 +7,7 @@ import CriarGaleria from '../components/galeria/index'
 export default props => (
     <main>
         <Routes>
+            <Route exact path="/" element={<ListarGaleria />} />
             <Route exact path="/listargaleria" element={<ListarGaleria />} />
             <Route exact path="/criargaleria" element={<CriarGaleria />} />
         </Routes>

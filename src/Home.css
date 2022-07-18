@@ -15,6 +15,16 @@
     margin: 16px 16px 26px 16px;
     background: rgba(255, 255, 255, 0.3);
 }
+
+.div-logo-collapsed {
+    width: 80px;
+    height: 64px;
+}
+
+.icone-logo-collapsed{
+    margin-top: 1.4vh;
+}
+
 .logo {
     width: 100%;
     transition: width 2s;

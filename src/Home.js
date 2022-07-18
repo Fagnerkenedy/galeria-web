@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 import Imgcollapsed from './LogoCollapsed';
 import SubMenu from 'antd/lib/menu/SubMenu';
-import ContentPage from './main/Content';
+import ContentPages from './main/ContentPages';
 
 
 
@@ -29,11 +29,12 @@ const Home = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={['2']}
+          defaultOpenKeys={['1']}
         >
-          <SubMenu title='Galeria' icon={<CameraOutlined />}>
-            <Menu.Item key={1} icon={<UnorderedListOutlined />}><Link to="/listargaleria">Listar Galeria</Link></Menu.Item>
-            <Menu.Item key={2} icon={<FolderAddOutlined />}><Link to="/criargaleria">Criar Galeria</Link></Menu.Item>
+          <SubMenu key={1} title='Galeria' icon={<CameraOutlined />}>
+            <Menu.Item key={2} icon={<UnorderedListOutlined />}><Link to="/listargaleria">Listar Galerias</Link></Menu.Item>
+            <Menu.Item key={3} icon={<FolderAddOutlined />}><Link to="/criargaleria">Criar Nova Galeria</Link></Menu.Item>
           </SubMenu>
         </Menu>
 
@@ -58,8 +59,8 @@ const Home = () => {
             minHeight: 280,
           }}
         >
-
-          <ContentPage />
+        
+          <ContentPages />
           
         </Content>
       </Layout>
