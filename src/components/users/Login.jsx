@@ -1,19 +1,33 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Layout, Row, Col, Button, Form, Input, Typography, Divider } from 'antd';
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import logo from '../../img/logo.jpeg';
 import FooterText from '../utils/FooterText';
+import AuthContext from '../../contexts/auth';
 
 const { Content } = Layout;
 const { Title } = Typography;
 
 
 const Login = () => {
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-    };
+    const { authenticated, login } = useContext(AuthContext);
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    
+    const handleSubmit = (e) => {
+        
+       // console.log(e);
+       // console.log(email);
+        // console.log(password);
+        const data = {email, password}
+        console.log("data", data)
+        
+        login(data); // Integração com o Context / API
+    }
+
     return (
         <Layout className="layout">
             <Content>
@@ -39,18 +53,33 @@ const Login = () => {
                                             initialValues={{
                                                 remember: true,
                                             }}
-                                            onFinish={onFinish}
+                                            onFinish={handleSubmit}
+                                            
+                                            
                                         >
+                                            <p>{String(authenticated)}</p>
                                             <Form.Item
-                                                name="username"
+                                                name="email"
                                                 rules={[
                                                     {
                                                         required: true,
-                                                        message: 'Please input your Username!',
                                                     },
+                                                    {
+                                                        type: 'email',
+                                                        message: 'E-mail Inválido!',
+                                                    }
                                                 ]}
                                             >
-                                                <Input size='large' prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" autoFocus />
+                                                <Input 
+                                                    size='large' 
+                                                    prefix={<UserOutlined 
+                                                    className="site-form-item-icon" />} 
+                                                    placeholder="E-mail" 
+                                                    autoFocus 
+                                                    value={email} 
+                                                    onChange={(e) => setEmail(e.target.value)}
+                                                        
+                                                    />
                                             </Form.Item>
                                             <Form.Item
                                                 name="password"
@@ -66,6 +95,8 @@ const Login = () => {
                                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                                     type="password"
                                                     placeholder="Password"
+                                                    value={password}
+                                                    onChange={(e) => setPassword(e.target.value)}
                                                 />
                                             </Form.Item>
                                             {/*

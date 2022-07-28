@@ -19,6 +19,15 @@ const apiURI = {
 
     return userApiRequest(config)
 
+  },
+
+  login: (data) => {
+    const config = {
+      method: 'post',
+      url: `${process.env.REACT_APP_USER_API_BASE_URL}/login`,
+      data: { ...data }
+    }
+    return userApiRequest(config)
   }
 
 }

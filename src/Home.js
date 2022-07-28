@@ -6,20 +6,56 @@ import {
   UnorderedListOutlined,
   CameraOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
-import React, { useState } from 'react';
+import { Button, Dropdown, Layout, Menu } from 'antd';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Imgcollapsed from './LogoCollapsed';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import ContentPages from './main/ContentPages';
+import AuthContext from './contexts/auth'
 
 
 
 const { Header, Sider, Content } = Layout;
 
-
 const Home = () => {
+  const { logout } = useContext(AuthContext)
+  const handleLogout = () => {
+    logout();
+  }
+
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: '1',
+          label: (
+            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+              1st menu item
+            </a>
+          ),
+        },
+        {
+          key: '2',
+          label: (
+            <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+              2nd menu item
+            </a>
+          ),
+        },
+        {
+          key: '3',
+          label: (
+            <Button onClick={handleLogout} rel="noopener noreferrer" >
+              Sair
+            </Button>
+          ),
+        },
+      ]}
+    />
+  );
+
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout>
@@ -50,6 +86,11 @@ const Home = () => {
             className: 'trigger',
             onClick: () => setCollapsed(!collapsed),
           })}
+          
+          <Dropdown overlay={menu} placement="bottomRight">
+            <Button>Usuário</Button>
+          </Dropdown>
+
         </Header>
         <Content
           className="site-layout-background"
@@ -59,9 +100,9 @@ const Home = () => {
             minHeight: 280,
           }}
         >
-        
+
           <ContentPages />
-          
+
         </Content>
       </Layout>
     </Layout>
