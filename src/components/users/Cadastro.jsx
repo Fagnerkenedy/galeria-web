@@ -21,31 +21,38 @@ function Cadastro() {
 
     const onFinish = async (values) => {
         setLoading(true)
-        setCadastrado(true)
-        console.log('Received values of form: ', values)
+
         try {
             // Verifica se existe email cadastrado
             const emailCheck = await userApiURI.checkEmail(values.email);
-            if (emailCheck.data.success === true) {
-                console.log('Email já cadastrado')
+            if (emailCheck.status === 200 && emailCheck.data.success === false) {
+
                 setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="O E-mail informado já está cadastrado em nosso sistema. Por favor revise os dados informados  " type="error" showIcon />)
                 setLoading(false)
                 return
+            } else if (emailCheck.status === 400) {
+                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Entre em contato com o suporte." type="error" showIcon />)
+                setLoading(false)
+                return
             }
-            console.log(emailCheck)
 
             const result = await userApiURI.register(values)
-            console.log(result.data.success)
-            if (!result.data.succes) {
-                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Administrador." type="error" showIcon />)
-                console.log('Erro ao cadastrar')
+
+            if (result.status === 400) {
+                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Suporte." type="error" showIcon />)
+                
+            } else if (result.status === 200 && result.data.success === false) {
+                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="O E-mail informado já está cadastrado em nosso sistema. Por favor revise os dados informados  " type="error" showIcon />)
+                setLoading(false)
             } else {
+                const user = result.data.user
+                const resultEmailConfirmation = await userApiURI.sendEmailConfirmation(user)
+                console.log(resultEmailConfirmation)
                 setCadastrado(true)
-                console.log('Cadastrado com sucesso')
             }
             setLoading(false)
         } catch (error) {
-            setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Administrador." type="error" showIcon />)
+            setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Suporte." type="error" showIcon />)
             console.log('Erro ao tentar cadastrar', error)
             setLoading(false)
         }

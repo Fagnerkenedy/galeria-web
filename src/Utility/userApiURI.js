@@ -28,6 +28,24 @@ const apiURI = {
       data: { ...data }
     }
     return userApiRequest(config)
+  },
+
+  sendEmailConfirmation: (data) => {
+    const config = {
+      method: 'post',
+      url: `${process.env.REACT_APP_USER_API_BASE_URL}/mailconfirmation`,
+      data: { ...data }
+    }
+    return userApiRequest(config)
+  },
+
+  userConfirmation: (data) => {
+    const config = {
+      method: 'post',
+      url: `${process.env.REACT_APP_USER_API_BASE_URL}/confirmation`,
+      data: { ...data }
+    }
+    return userApiRequest(config)
   }
 
 }

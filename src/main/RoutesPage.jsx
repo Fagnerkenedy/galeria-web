@@ -13,6 +13,7 @@ import AuthContext, { AuthProvider } from '../contexts/auth'
 import Loading from '../components/utils/Loading';
 
 function RoutesPage() {
+
   const Private = ({children}) => {
     const { authenticated, loading } = useContext(AuthContext);
 
@@ -37,7 +38,9 @@ function RoutesPage() {
           </Route>
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/emailconfirm" element={<ConfirmedEmail />} />
+
+          <Route path="/cadastro/confirmacao/:uuid" element={<ConfirmedEmail />}  />
+
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AuthProvider>
