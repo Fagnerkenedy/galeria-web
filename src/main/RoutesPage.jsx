@@ -8,6 +8,7 @@ import Cadastro from '../components/users/Cadastro'
 import Login from "../components/users/Login"
 import ConfirmedEmail from '../components/users/ConfirmEmail';
 import PageNotFound from "../PageNotFound"
+import MinhaConta from "../components/users/MyAccount"
 
 import AuthContext, { AuthProvider } from '../contexts/auth'
 import Loading from '../components/utils/Loading';
@@ -35,6 +36,7 @@ function RoutesPage() {
           <Route exact path="/" element={<Private><Home /></Private>} >
             <Route path="/listargaleria" element={<ListarGaleria />} />
             <Route path="/criargaleria" element={<CriarGaleria />} />
+            <Route path="/minhaconta" element={<MinhaConta />} />
           </Route>
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/login" element={<Login />} />

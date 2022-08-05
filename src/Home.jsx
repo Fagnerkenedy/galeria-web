@@ -14,31 +14,12 @@ import Imgcollapsed from './LogoCollapsed';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import ContentPages from './main/ContentPages';
 import AuthContext from './contexts/auth'
-import userApiURI from './Utility/userApiURI';
-
-
-
 
 const { Sider, Content } = Layout;
 
 const Home = () => {
 
-
-  const [nomeUsuario, setUser] = useState("");
-
-
-  const usuarioLogado = async (data) => {
-    const response = await userApiURI.login(data)
-    const loggedUser = response.data.user.name;
-
-    localStorage.getItem("name", JSON.parse(loggedUser));
-
-    setUser(loggedUser);
-  };
-
-
-
-
+  const user = JSON.parse(localStorage.getItem('user'))
 
   const { logout } = useContext(AuthContext)
   const handleLogout = () => {
@@ -76,8 +57,8 @@ const Home = () => {
             onClick: () => setCollapsed(!collapsed),
           })}
 
-          <SubMenu className='Submenu-Navbar' style={{ marginLeft: 'auto' }} title={<span>Bem vindo {nomeUsuario}!</span>}>
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
+          <SubMenu className='Submenu-Navbar' style={{ marginLeft: 'auto' }} title={user.email}>
+            <Menu.Item key="setting:1"><Link to="/minhaconta">Minha conta</Link></Menu.Item>
             <Menu.Item key="setting:2">Option 2</Menu.Item>
             <Menu.Item key="setting:3">Option 3</Menu.Item>
             <Menu.Item onClick={handleLogout} key="setting:4">Sair</Menu.Item>

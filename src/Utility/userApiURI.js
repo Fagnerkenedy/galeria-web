@@ -46,7 +46,19 @@ const apiURI = {
       data: { ...data }
     }
     return userApiRequest(config)
-  }
+  },
+
+  updateUser: (data) => {
+    const config = {
+      method: 'put',
+      url: `${process.env.REACT_APP_USER_API_BASE_URL}/update`,
+      data: { ...data }
+    }
+
+    return userApiRequest(config)
+
+  },
+  
 
 }
 
