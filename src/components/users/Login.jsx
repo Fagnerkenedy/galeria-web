@@ -6,26 +6,28 @@ import { Link } from 'react-router-dom';
 import logo from '../../img/logo.jpeg';
 import FooterText from '../utils/FooterText';
 import AuthContext from '../../contexts/auth';
+import Loading from '../utils/Loading';
 
 const { Content } = Layout;
 const { Title } = Typography;
 
-
 const Login = () => {
-    const { authenticated, login } = useContext(AuthContext);
+    const { authenticated, login, loading, alertMessage } = useContext(AuthContext);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
+    
     const handleSubmit = (e) => {
-        
-       // console.log(e);
-       // console.log(email);
-        // console.log(password);
         const data = {email, password}
-        console.log("data", data)
-        
+
         login(data); // Integração com o Context / API
+    }
+
+    if (loading) {
+        return (
+            <Loading />
+        )
     }
 
     return (
@@ -46,6 +48,10 @@ const Login = () => {
                                             </Col>
                                         </Row>
                                         <Title level={4} className='user-cadastro-title'>Informe os dados de acesso</Title>
+                                        
+                                        {/* MENSAGEM DE ALERTA CASO RETORNE ERRO NO CADASTRO */}
+                                        {alertMessage}
+
                                         <Divider />
                                         <Form
                                             name="normal_login"
@@ -57,7 +63,6 @@ const Login = () => {
                                             
                                             
                                         >
-                                            <p>{String(authenticated)}</p>
                                             <Form.Item
                                                 name="email"
                                                 rules={[
@@ -72,8 +77,7 @@ const Login = () => {
                                             >
                                                 <Input 
                                                     size='large' 
-                                                    prefix={<UserOutlined 
-                                                    className="site-form-item-icon" />} 
+                                                    prefix={<UserOutlined className="site-form-item-icon" />} 
                                                     placeholder="E-mail" 
                                                     autoFocus 
                                                     value={email} 

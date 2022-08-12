@@ -1,48 +1,57 @@
+import { Alert } from "antd";
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import userApiURI from '../Utility/userApiURI';
 
-
 const AuthContext = createContext();
-
-
 
 export const AuthProvider = ({children}) => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
         const recoveredUser = localStorage.getItem('user');
-
-         if(recoveredUser) {
+        if(recoveredUser !== "undefined") {
             setUser(JSON.parse(recoveredUser));
         } 
         setLoading(false);
-    }, []);
+    }, [user]);
 
     const login = async (data) => {
         setLoading(true);
         
         const response = await userApiURI.login(data)
+        console.log(response.data)
+        if(response.status === 200 && !response.data.success){
+            console.log("Success: ", response.data.success)
+            if(response.data.message == "user_not_found")
+                setAlertMessage(<Alert message="OPS! Houve um erro no login!" description="O E-mail informado não está cadastrado" type="error" showIcon />)
+            
+            if(response.data.message == "invalid_password")
+                setAlertMessage(<Alert message="OPS! Houve um erro no login!" description="Senha Incorreta" type="error" showIcon />)
+            
+            if(response.data.message == "user_not_verified")
+                setAlertMessage(<Alert message="OPS! Usuário não verificado!" description="Verifique a caixa de entrada de seu E-mail" type="error" showIcon />)
+        }else{
+
+            const loggedUser = response.data.user;
+            const token = response.data.token;
+
+            localStorage.setItem("user", JSON.stringify(loggedUser));
+            localStorage.setItem("token", token);
+
+            // api.defaults.headers.Authorization = `Bearer ${token}`;
+            setUser(loggedUser);
+            navigate("/");
+        }
         
-        console.log("login", response);
-
-        const loggedUser = response.data.user;
-        const token = response.data.token;
-
-        localStorage.setItem("user", JSON.stringify(loggedUser));
-        localStorage.setItem("token", token);
-
-        // api.defaults.headers.Authorization = `Bearer ${token}`;
-        
-        setUser(loggedUser);
-        navigate("/");
         setLoading(false);
+        
     };
 
     const logout = () => {
-        console.log("logout");
 
         localStorage.removeItem("user");
         localStorage.removeItem("token");
@@ -54,7 +63,7 @@ export const AuthProvider = ({children}) => {
     };
 
     return (
-        <AuthContext.Provider value={{ authenticated: !!user, user, loading, login, logout }}>
+        <AuthContext.Provider value={{ authenticated: !!user, user, loading, login, logout, alertMessage }}>
             {children}
         </AuthContext.Provider>
     )

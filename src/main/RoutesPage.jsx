@@ -1,17 +1,18 @@
 import React, { useContext } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import Home from '../Home';
+import Home from '../components/Home';
 import ListarGaleria from '../components/galeria/listar'
 import CriarGaleria from '../components/galeria/index'
 import Cadastro from '../components/users/Cadastro'
 import Login from "../components/users/Login"
 import ConfirmedEmail from '../components/users/ConfirmEmail';
-import PageNotFound from "../PageNotFound"
+import PageNotFound from "../components/PageNotFound"
 import MinhaConta from "../components/users/MyAccount"
 
 import AuthContext, { AuthProvider } from '../contexts/auth'
 import Loading from '../components/utils/Loading';
+
 
 function RoutesPage() {
 

@@ -6,8 +6,8 @@ import {
 import { Layout, Menu } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 
-import logo from './img/logo.jpeg';
-import logopequena from './img/logopequena.jpg';
+import logo from '../img/logo.jpeg';
+import logopequena from '../img/logopequena.jpg';
 
 function Imgcollapsed(props) {
 

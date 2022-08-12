@@ -1,10 +1,11 @@
-import './Home.css';
+import '../css/Home.css';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   FolderAddOutlined,
   UnorderedListOutlined,
   CameraOutlined,
+  UserOutlined
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState, useContext } from 'react';
@@ -12,8 +13,8 @@ import { Link } from 'react-router-dom';
 
 import Imgcollapsed from './LogoCollapsed';
 import SubMenu from 'antd/lib/menu/SubMenu';
-import ContentPages from './main/ContentPages';
-import AuthContext from './contexts/auth'
+import ContentPages from '../main/ContentPages';
+import AuthContext from '../contexts/auth'
 
 const { Sider, Content } = Layout;
 
@@ -57,10 +58,8 @@ const Home = () => {
             onClick: () => setCollapsed(!collapsed),
           })}
 
-          <SubMenu className='Submenu-Navbar' style={{ marginLeft: 'auto' }} title={user.email}>
+          <SubMenu className='Submenu-Navbar' style={{ marginLeft: 'auto' }} icon={<UserOutlined className="site-form-item-icon" />} title={user.name}>
             <Menu.Item key="setting:1"><Link to="/minhaconta">Minha conta</Link></Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
             <Menu.Item onClick={handleLogout} key="setting:4">Sair</Menu.Item>
           </SubMenu>
         </Menu>
