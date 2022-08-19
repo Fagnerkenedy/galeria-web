@@ -112,23 +112,24 @@ const MyAccount = () => {
         // setLoading(true)
 
         try {
+            const userId = user._id;
+            console.log(user._id)
+            const result = await userApiURI.updateUser(values, userId)
 
-            const result = await userApiURI.updateUser(values)
+            // if (result.status === 400) {
+            //     setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Suporte." type="error" showIcon />)
 
-            if (result.status === 400) {
-                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Suporte." type="error" showIcon />)
+            // } else if (result.status === 200 && result.data.success === false) {
+            //     setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="O E-mail informado já está cadastrado em nosso sistema. Por favor revise os dados informados  " type="error" showIcon />)
+            //     setLoading(false)
 
-            } else if (result.status === 200 && result.data.success === false) {
-                setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="O E-mail informado já está cadastrado em nosso sistema. Por favor revise os dados informados  " type="error" showIcon />)
-                setLoading(false)
-
-            } else {
-                const user = result.data.user
-                const updateUser = await userApiURI.updateUser(user)
-                console.log(updateUser)
-                setCadastrado(true)
-                console.log('Received values of form: ', values)
-            }
+            // } else {
+            //     const user = result.data.user
+            //     const updateUser = await userApiURI.updateUser(user)
+            //     console.log(updateUser)
+            //     setCadastrado(true)
+            //     console.log('Received values of form: ', values)
+            // }
             setLoading(false)
         } catch (error) {
             setAlertMessage(<Alert message="OPS! Houve um erro ao cadastrar" description="Falha na comunicação com o Servidor! Por favor entre em contato com o Suporte." type="error" showIcon />)
@@ -224,8 +225,8 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <Input value={user.name} />
-                {/* <input value={userForm.name || ''} onChange={e => setUserForm(e.target.value)}></input> */}
+                {/* <Input value={user.name} /> */}
+                <Input defaultValue={userForm.name || ''} onChange={e => setUserForm(e.target.value)}></Input>
             </Form.Item>
 
             <Form.Item
@@ -240,7 +241,7 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <Input />
+                <Input defaultValue={user.lastname} />
             </Form.Item>
             <Form.Item
                 name="email"
@@ -259,7 +260,7 @@ const MyAccount = () => {
                 <Input />
             </Form.Item>
 
-            <Form.Item
+            {/* <Form.Item
                 name="password"
                 label="Password"
                 rules={[
@@ -270,10 +271,10 @@ const MyAccount = () => {
                 ]}
                 hasFeedback
             >
-                <Input.Password />
+                <Input.Password defaultValue={user.password} />
             </Form.Item>
 
-            {/* <Form.Item
+             <Form.Item
                 name="password-confirm"
                 label="Confirm Password"
                 dependencies={['password']}
@@ -309,7 +310,7 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <Input />
+                <Input defaultValue={user.sitename} />
             </Form.Item>
 
             <Form.Item
@@ -327,6 +328,7 @@ const MyAccount = () => {
                     style={{
                         width: '100%',
                     }}
+                    defaultValue={user.phone}
                 />
             </Form.Item>
 
@@ -340,9 +342,9 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
-                    <Input />
-                </AutoComplete>
+                {/*<AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
+                </AutoComplete>*/}
+                    <Input defaultValue={user.site} />
             </Form.Item>
 
             <Form.Item
@@ -355,7 +357,7 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <Input />
+                <Input defaultValue={user.instagram} />
             </Form.Item>
 
             <Form.Item
@@ -368,7 +370,7 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <Input />
+                <Input defaultValue={user.facebook} />
             </Form.Item>
 
             <Form.Item
@@ -383,7 +385,7 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <Input />
+                <Input defaultValue={user.endereco} />
             </Form.Item>
 
             <Form.Item
@@ -398,7 +400,7 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <Input />
+                <Input defaultValue={user.numero} />
             </Form.Item>
 
             <Form.Item
@@ -412,7 +414,7 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <Input />
+                <Input defaultValue={user.bairro} />
             </Form.Item>
 
             <Form.Item
@@ -426,7 +428,7 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <Input />
+                <Input defaultValue={user.cidade} />
             </Form.Item>
 
             <Form.Item
@@ -440,7 +442,7 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <Input />
+                <Input defaultValue={user.estado} />
             </Form.Item>
 
             <Form.Item
@@ -455,7 +457,7 @@ const MyAccount = () => {
                     },
                 ]}
             >
-                <Input />
+                <Input defaultValue={user.pais} />
             </Form.Item>
 
             <Form.Item {...tailFormItemLayout}>

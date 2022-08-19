@@ -48,10 +48,10 @@ const apiURI = {
     return userApiRequest(config)
   },
 
-  updateUser: (data) => {
+  updateUser: (data, batata) => {
     const config = {
       method: 'put',
-      url: `${process.env.REACT_APP_USER_API_BASE_URL}/update`,
+      url: `${process.env.REACT_APP_USER_API_BASE_URL}/update/${batata}`,
       data: { ...data }
     }
 
